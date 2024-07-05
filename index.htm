@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Calendar</title>
+    <style>
+      * {
+        border: 0px;
+        margin: 0px;
+      }
+      
+      #content {
+        font-size: 30pt;
+        display: block;
+        width: 800px;
+        height: 480px;
+        display: none;
+      }
+
+      .black {
+        color: black;
+      }
+
+      .bg_black {
+        background-color: black;
+      }
+
+      .red {
+        color: red;
+      }
+
+      .bg_red {
+        background-color: red;
+      }
+  
+    </style>
+  </head>
+  <body>
+    <div id="content">
+     <h1 class="red"> Hello!</h1>
+     Today is {{ .Now }}
+     <h1 class="black">Bye</h1>
+    </div> 
+  </body>
+</html>
