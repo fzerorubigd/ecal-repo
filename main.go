@@ -5,6 +5,8 @@ import (
 	"bytes"
 	"context"
 	_ "embed"
+	"encoding/json"
+	"errors"
 	"fmt"
 	"html/template"
 	"image"
@@ -28,12 +30,42 @@ const distance = 0.1
 //go:embed index.htm
 var tpl string
 
+func randomText() (template.HTML, error) {
+	res, err := http.Get("https://api.ganjoor.net/api/ganjoor/poem/random?poetId=2")
+	if err != nil {
+		return "", err
+	}
+	defer res.Body.Close()
+	data, err := io.ReadAll(res.Body)
+	if err != nil {
+		return "", err
+	}
+
+	var m map[string]any
+	if err = json.Unmarshal(data, &m); err != nil {
+		return "", err
+	}
+
+	str, ok := m["plainText"].(string)
+
+	if !ok {
+		return "", errors.New("invalid response")
+	}
+
+	return template.HTML(str), nil
+}
+
 func main() {
 	tplExec := template.Must(template.New("daily").Parse(tpl))
+	txt, err := randomText()
+	if err != nil {
+		panic(err)
+	}
 	http.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
 
 		tplExec.Execute(w, map[string]any{
-			"Now": time.Now().Format(time.RFC3339),
+			"Now":  time.Now().Format(time.RFC3339),
+			"Poet": txt,
 		})
 	})
 

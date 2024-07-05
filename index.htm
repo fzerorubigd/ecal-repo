@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Calendar</title>
     <style>
       * {
         border: 0px;
         margin: 0px;
+        font-family: Vazirmatn, sans-serif;
       }
       
       #content {
@@ -33,14 +35,18 @@
       .bg_red {
         background-color: red;
       }
+
+      .small {
+        font-size: small;
+      }
   
     </style>
   </head>
   <body>
     <div id="content">
-     <h1 class="red"> Hello!</h1>
-     Today is {{ .Now }}
-     <h1 class="black">Bye</h1>
+      {{ .Poet }}
+
+      <div class="small">{{ .Now }}</div>
     </div> 
   </body>
 </html>
