@@ -46,7 +46,7 @@ func randomText() (template.HTML, error) {
 		return "", err
 	}
 
-	str, ok := m["plainText"].(string)
+	str, ok := m["htmlText"].(string)
 
 	if !ok {
 		return "", errors.New("invalid response")
