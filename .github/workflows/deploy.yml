@@ -1,0 +1,25 @@
+---
+name: 'deploy assets'
+on:
+  schedule:
+  - cron: "0 1 * * *"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v4
+      - id: build 
+        run: |
+          go run ./main.go
+        env: 
+          PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          force_orphan: true          
